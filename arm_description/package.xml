@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>arm_description</name>
+  <version>1.2.1</version>
+  <description>
+      URDF description for a bionic arm
+  </description>
+
+  <author>Bharath Kumar</author>
+  <maintainer email="kumar7bharath@gmail.com">Bharath Kumar</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/ur_description</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>urdf</run_depend>
+
+  <export>
+  </export>
+</package>
