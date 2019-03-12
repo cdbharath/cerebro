@@ -1,10 +1,47 @@
+import pandas as pd 
 import csv
-import sys
-import pandas as pd
 
-txt_file = "/home/jeyamariajose/Projects/Cerebro/data/OpenBCI-RAW-blink_clench_1.txt"
-csv_file = "/home/jeyamariajose/Projects/Cerebro/data/clench_1.csv"
+data  = pd.read_csv('/home/jeyamariajose/Projects/Cerebro/data/RAW/clench_1.csv',names = ['ind','a','b'])
 
-data = pd.read_csv(txt_file, sep=" ", header=None)
-#data.columns = ["ind", "a", "b", "w1","w2","w3","w4","w5","w6"]
-print data
+
+#print data
+var = 0
+
+temp = list()
+temp2 = list()
+with open('/home/jeyamariajose/Projects/Cerebro/data/RAW/clench_1.csv', 'r') as csvfile:
+	csv_reader = csv.reader(csvfile, delimiter = ',')
+	#print csv_reader
+	for row in csv_reader:
+		with open('/home/jeyamariajose/Projects/Cerebro/data/train/sample.csv', 'wb') as myfile:
+			
+			temp.append(row[0])
+			temp.append(row[1])
+			temp.append(row[2])
+
+			print temp
+			
+			
+			
+			
+			
+			temp[:]=[]
+			#print row[0] 
+			if row[0] == '200':
+				temp2.append(temp)
+				print temp2
+				wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+				wr.writerow(temp2)
+				temp2[:]=[]
+
+
+
+				
+
+
+				
+				
+
+						
+
+	
