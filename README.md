@@ -6,7 +6,7 @@ The project proposes an approach towards EEG-driven position control of a robot 
 
 #### Progress:
 
-###### Arm
+##### Arm
 
 ◦Inverse kinematics equations
 After doing a literature survey,the following paper was chosen for developing the inverse kinematics equation for the 4-DOF arm.
@@ -37,7 +37,7 @@ Finger Actuation. The CAD model of a hand, which had its finger controlled using
 <img src="images/hand.png" >
 </p>
 
-###### Signal Acquisition
+##### Signal Acquisition
 
 ◦ Tina simulation of the circuit
 
@@ -69,7 +69,7 @@ Hence EOG signals were acquired and the data was serially communicate to Arduino
 <img src="images/output.png" >
 </p>
 
-###### Haptic feedback
+##### Haptic feedback
 
 ◦ Force sensors and Flex sensors
 Ideated on interfacing force sensors and flex sensors on the robotic hand. Force sensors are used to measure the force experienced by the robotic arm and have necessary feedback through the pressure actuator in the user’s glove. Flex sensors are used to measure the movements of the finger and the position, which would be used as feedback signal for the positioning of finger. Force sensors and flex sensors were tested and their response to different forces and positioning were recorded.
