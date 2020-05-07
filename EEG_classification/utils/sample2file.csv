@@ -1,0 +1,6 @@
+f =open('/home/jeyamariajose/Projects/Cerebro/data/RAW/clench_1.csv')
+
+loc = '/home/jeyamariajose/Projects/Cerebro/data/train/'
+
+for line in f:
+	 

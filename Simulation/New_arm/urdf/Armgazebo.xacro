@@ -1,0 +1,133 @@
+<?xml version="1.0" ?>
+	<robot name="basicarm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:property name="pi" value="3.1415926535897931"/>
+	<xacro:property name="r" value="2"/>      <!-- radius of the arm -->
+	<xacro:property name="l1" value="1"/>       <!-- Length of arm-1 -->
+	<xacro:property name="l2" value="2"/>       <!-- Length of arm-2 -->
+	<xacro:property name="m" value="1"/>        <!-- arbitrary value for mass -->
+
+
+	<link name="world"/>
+
+	<joint name="world_base" type="fixed">
+		<parent link="world"/>
+    	<child link="base_link"/>
+    	<origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+	<link name="base_link">                    
+		<inertial>
+			<mass value="${m}"/>
+			<origin xyz="0 0 0.5" rpy="0 0 0"/>
+			<inertia 
+				ixx="2" ixy="2" ixz="0.0"
+				iyy="0" iyz="0.0"
+				izz="3"/>
+		</inertial>
+		<visual>
+			<origin rpy="0 0 0" xyz="0 0 0.5"/>
+			<geometry>
+				<cylinder radius="5" length="0.5"/>
+			</geometry>
+		</visual>
+	</link>
+
+	<joint name="base_link__link_01" type="revolute">
+		<axis xyz="0 1 1" />
+		<dynamics damping="0.7"/>
+		<limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+		<origin py="0 0 0" xyz="0 0 0.5"/>
+		<parent link="base_link"/>
+		<child link="link1"/>
+	</joint>
+
+	<link name="link1">                         <!--Base arm 1 -->
+		<inertial>
+			<mass value="${m}"/>
+			<origin xyz="0 0 0.5" rpy="0 0 0"/>
+			<inertia 
+			ixx="${m/3.0 * (l1*l1)}" ixy="0.0" ixz="0.0"
+			iyy="${m/3.0 * (l1*l1)}" iyz="0.0"
+			izz="${m/2.0 * (r*r)}"/>
+		</inertial>
+		<visual>
+			<origin rpy="0 0 0" xyz="0 0 0.5"/>
+			<geometry>
+				<cylinder radius="${r}" length="${l1}"/>
+			</geometry>
+		</visual>
+	</link>
+
+	<joint name="link1__link_2" type="revolute">
+		<axis xyz="0 1 0" />
+		<dynamics damping="0.7"/>
+		<limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+		<origin py="0 0 0" xyz="0 0 1.5"/>
+		<parent link="link1"/>
+		<child link="link2"/>
+	</joint>
+
+
+	<link name="link2">
+		<inertial>
+			<mass value="${m}"/>
+			<origin xyz="0 0 2" rpy="0 0 0"/>
+			<inertia 
+			ixx="${m/3.0 * (l1*l1)}" ixy="0.0" ixz="0.0"
+			iyy="${m/3.0 * (l1*l1)}" iyz="0.0"
+			izz="${m/2.0 * (r*r)}"/>
+		</inertial>
+		<visual>
+			<origin rpy="0 0 0" xyz="0 0 2.5"/>
+			<geometry>
+			<cylinder radius="0.2" length="2.0"/>
+			</geometry>
+		</visual> 
+	</link>
+
+	<joint name="link2__link_3" type="revolute">
+		<axis xyz="0 1 0" />
+		<limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+		<origin py="0 0 0" xyz="0 0 1"/>
+		<dynamics damping="0.7"/>
+		<parent link="link2"/>
+		<child link="link3"/>
+	</joint>
+
+
+	<link name="link3">
+		<inertial>
+			<mass value="${m}"/>
+			<origin xyz="0 0 3" rpy="0 0 0"/>
+			<inertia 
+			ixx="5" ixy="0.0" ixz="0.0"
+			iyy="5" iyz="0.0"
+			izz="5"/>
+		</inertial>
+
+		<visual>
+			<origin rpy="0 0 0" xyz="0 0 4.5"/>
+			<geometry>
+			<cylinder radius="0.69" length="0.005"/>
+			</geometry>
+		</visual>
+	</link>
+</robot>
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/simple_model</robotNamespace>
+    </plugin>
+  </gazebo>
+
+  <!-- transmission -->
+  <transmission name="base_to_second_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="motor1">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="base_link__link_01">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>

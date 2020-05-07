@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+
+<robot name="basicarm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <link name="base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.5" length="1"/>
+            </geometry>
+        </visual>
+    </link>
+    
+    <joint name="base_link__link_01" type="revolute">
+        <axis xyz="0 0 1" />
+        <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin py="0 0 0" xyz="0 0 0.5"/>
+        <parent link="base_link"/>
+        <child link="link1"/>
+    </joint>
+    
+    <link name="link1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.35" length="0.2"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="link1__link_2" type="revolute">
+        <axis xyz="0 1 0" />
+        <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin py="0 0 0" xyz="0 0 0.7"/>
+        <parent link="link1"/>
+        <child link="link2"/>
+    </joint>
+
+
+    <link name="link2">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.2" length="1.0"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="link2__link_3" type="revolute">
+        <axis xyz="0 1 0" />
+        <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin py="0 0 0" xyz="0 0 1.35"/>
+        <parent link="link2"/>
+        <child link="link3"/>
+    </joint>
+
+
+    <link name="link3">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.2" length="1.0"/>
+            </geometry>
+        </visual>
+    </link>
+
+
+
+</robot>
