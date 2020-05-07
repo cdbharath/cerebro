@@ -6,13 +6,14 @@ The project proposes an approach towards EEG-driven position control of a robot 
 
 #### Progress:
 
-######Arm
+###### Arm
 
 ◦Inverse kinematics equations
 After doing a literature survey,the following paper was chosen for developing the inverse kinematics equation for the 4-DOF arm.
 https://ieeexplore.ieee.org/document/7166008
 
 ◦ Simulation in processing
+
 A hand model was developed using Processing. The inverse kinematics equations were solved and the angle was fed to the model to validate the equations.
 
 <p align="center">
@@ -20,6 +21,7 @@ A hand model was developed using Processing. The inverse kinematics equations we
 </p>
 
 ◦ Simulation in Gazebo
+
 The arm is simulated in gazebo and rviz by using the CADs designed by us as meshes. The actuation of the joints were controlled by changing the servo angles and the respective output is checked in the simulation.
 
 <p align="center">
@@ -35,9 +37,10 @@ Finger Actuation. The CAD model of a hand, which had its finger controlled using
 <img src="images/hand.png" >
 </p>
 
-######Signal Acquisition
+###### Signal Acquisition
 
 ◦ Tina simulation of the circuit
+
 Second order butterworth filter along with passive high pass filter was designed for the range of 5-20Hz for noise removal from the EEG. The output was then given to an instrumentation amplifier. This circuit was simulated in Tina before trying it out in Breadboard.
 
 <p align="center">
@@ -45,9 +48,11 @@ Second order butterworth filter along with passive high pass filter was designed
 </p>
 
 ◦ Breadboard implementation
+
 The above circuit was practically implemented in the bread board and was validated.
 
 ◦ PCB design
+
 The same circuit was designed to make a PCB using Proteus software and printed for one channel.
 
 <p align="center">
@@ -55,6 +60,7 @@ The same circuit was designed to make a PCB using Proteus software and printed f
 </p>
 
 ◦ EEG acquisition with OpenBCI Board	
+
 As the designed board was for one channel, and for our application we need four channel, Open BCI board was used.
 Due to the high impedance of the electrodes used and the absence of abrasion gel for reducing the impedance due to dead cells, Motor imagery signals were not obtained properly.
 Hence EOG signals were acquired and the data was serially communicate to Arduino that checks with threshold and gives the appropriate output.Open BCI GUI was used to program the board on air.
@@ -63,30 +69,35 @@ Hence EOG signals were acquired and the data was serially communicate to Arduino
 <img src="images/output.png" >
 </p>
 
-######Haptic feedback
+###### Haptic feedback
 
 ◦ Force sensors and Flex sensors
 Ideated on interfacing force sensors and flex sensors on the robotic hand. Force sensors are used to measure the force experienced by the robotic arm and have necessary feedback through the pressure actuator in the user’s glove. Flex sensors are used to measure the movements of the finger and the position, which would be used as feedback signal for the positioning of finger. Force sensors and flex sensors were tested and their response to different forces and positioning were recorded.
 
 ◦ Compressor
+
 Compressor was tested with PWM to give out variable pressure that is necessary for filling the diaphragm. This will make sure that the required force is felt by the wearer of the glove, when the force sensors picks up the sensor values. 
 
-◦ Mould CAD design 
+◦ Mould CAD design
+
 The mould is a 1.8cm x 1cm x 0.4cm cuboid, designed in CAD and  3D printed. This is the Master mould which will be used for making the base of the balloon actuation mechanism that will will be attached to the fingers of the user.
         
 ◦ Testing 1 (Mould)
+
 One trial of making the PDMS mould was conducted. The curing agent an PDMS were added in the ratio of 1:10 and mixed using stirrer for 5 minutes after which the mixture was degassed in vacuum chamber. This mixture was then transferred to the mould and cured in hot air oven at 80 degrees for 6 hours.  The test did not yield the desired results, a s the PDMS had not solidified and instead had leaked outside the mould. The reason for it i that the terminal groups of the PDMS except hydroxyl and vinyl do not solidify, which I came to know later after analysing the reason for failure.
 
 
-#####Signal Classification
+##### Signal Classification
  
 ◦ CNN algorithm
+
 A convolutional neural net is used to classify the signals     acquired from all the electrodes and classified for jaw clenching and blinking with decent accuracy.
 
 ◦ Acquired Dataset
+
 EOG data was acquired from electrodes placed on the forehead. Differential outputs from 4 electrodes were taken with respect to ground and used as features for training the model.
-Link: https://github.com/bharath7kumar/Cerebro/tree/master/data 
 
 ◦ EOG signals
+
 The EOG signals of 3 different people were obtained for different eye movements. The differences were clearly observable, though the range of values varied time to time and person to person. Therefore calibration and thresholding of the EOG signal was performed in python. The algorithm classifies the movement of eye to top/bottom/right/left.
 
