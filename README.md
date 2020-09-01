@@ -1,4 +1,4 @@
-## Cerebro - In Progress
+## Cerebro 
 
 A 4-DOF arm that can be controlled using Motor Imagery EEG signals and a haptic feed back system is implemented to materialize the exerted pressure.
 
